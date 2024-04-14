@@ -1,0 +1,7 @@
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/main.elf.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/build.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/flash.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/erase.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/_clean.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/edit_cache.dir
+E:/The Courses/Embedded Systems/Tooling/STM32F401 RGB_Animation CMAKE/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug openocd",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "device": "STM32F401CCUx",
+            "executable": "build/main.elf",
+            "configFiles": 
+                [
+                "C:\\Users\\Mohamed Osama\\Downloads\\Compressed\\OpenOCD-20231002-0.12.0\\share\\openocd\\scripts\\interface\\stlink-v2.cfg",
+                "C:\\Users\\Mohamed Osama\\Downloads\\Compressed\\OpenOCD-20231002-0.12.0\\share\\openocd\\scripts\\target\\stm32f4x.cfg"
+                ],
+            "runToEntryPoint": "main",
+            "svdFile": ".vscode/stm32f401.svd"
+        }
+    ]
+}

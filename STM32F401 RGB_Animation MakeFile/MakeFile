@@ -1,0 +1,64 @@
+# Compiler and linker options
+CC := arm-none-eabi-gcc
+AS := arm-none-eabi-as
+LD := arm-none-eabi-ld
+HEX := arm-none-eabi-objcopy
+LD_SCRIPT = STM32F401CCU6_LinkerScript.ld
+
+# STM32F401CCU6 specific options
+MCU = cortex-m4
+CPU = -mcpu=$(MCU)
+
+# Compiler and Linker flags
+CFLAGS := -c $(CPU) -mthumb   --specs=nano.specs  -mfloat-abi=soft  -w -g
+LDFLAGS := $(CPU) -mthumb   --specs=nano.specs   -mfloat-abi=soft   -T $(LD_SCRIPT) -w -g
+
+# Flasher options
+STL := ST-LINK_CLI -c SWD
+
+# Project directories
+SRC_DIRS := $(wildcard */)
+SRC_DIRS += $(wildcard Src/MCAL/*/)
+SRC_DIRS += $(wildcard Src/HAL/*/)
+SRC_DIRS += $(wildcard Src/APP/*/)
+
+# Project Source Files
+SRCS := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)*.c))
+SRCS += $(wildcard *.c)
+
+# Project Object Files
+OBJ_FILES := $(SRCS:.c=.o)
+
+# Project object files in build path
+BUILD_PATH :=build/
+BUILD_OBJ_FILES = $(addprefix $(BUILD_PATH),$(notdir $(OBJ_FILES)))
+
+
+INCLUDE_PATH :=Inc
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -I $(INCLUDE_PATH) -o $(addprefix $(BUILD_PATH),$(notdir $@))
+	
+
+main.elf : $(OBJ_FILES)
+	@$(CC)  $(LDFLAGS) $(BUILD_OBJ_FILES) -o $(BUILD_PATH)$@  
+
+main.hex : main.elf
+	@$(HEX) -O ihex $(BUILD_PATH)$< $(BUILD_PATH)$@
+
+main.map : $(OBJ_FILES)
+	@$(CC) -Map $(BUILD_PATH)main.map $(LDFLAGS) $^
+
+build: main.hex
+	@echo "Project Builded Successfully"	
+
+flash: build
+	$(STL) -P $(BUILD_PATH)main.hex -V -Rst
+
+erase:
+	$(STL) -ME
+
+reset:
+	$(STL) -Rst	
+clean:
+	@rm -f   $(BUILD_PATH)*
+	@echo "Build Cleaned Successfmully"
